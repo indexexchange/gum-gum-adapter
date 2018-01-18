@@ -1,8 +1,8 @@
 {
-  "name": "gum-gum-module",
+  "name": "gumgum-module",
   "version": "2.1.0",
   "description": "a complete self-serve partner development package for the header tag wrapper",
-  "main": "gum-gum-htb.js",
+  "main": "gumgum-htb.js",
   "scripts": {
     "test": "jasmine"
   },
