@@ -31,7 +31,7 @@ var RenderService;
 
 //? if (DEBUG) {
 var ConfigValidators = require('config-validators.js');
-var PartnerSpecificValidator = require('gum-gum-htb-validator.js');
+var PartnerSpecificValidator = require('gumgum-htb-validator.js');
 var Scribe = require('scribe.js');
 var Whoopsie = require('whoopsie.js');
 //? }
@@ -73,6 +73,41 @@ function GumGumHtb(configs) {
 
     /* Utilities
      * ---------------------------------- */
+
+    function _getBrowserParams() {
+        return {
+            vw: Browser.getViewportWidth(),
+            vh: Browser.getViewportHeight(),
+            sw: Browser.getScreenWidth(),
+            sh: Browser.getScreenHeight(),
+            pu: Browser.getPageUrl(),
+            ce: Browser.isLocalStorageSupported(),
+            dpr: Browser.topWindow.devicePixelRatio || 1
+        }
+    }
+
+    function getWrapperCode(wrapper, data) {
+        return wrapper.replace('AD_JSON', Browser.topWindow.btoa(JSON.stringify(data)))
+    }
+
+    // TODO: use getConfig()
+    function _getDigiTrustQueryParams() {
+        var window = Browser.topWindow;
+
+        function getDigiTrustId() {
+            var digiTrustUser = (window.DigiTrust && window.DigiTrust.getUser) ? window.DigiTrust.getUser(DT_CREDENTIALS) : {};
+            return (digiTrustUser && digiTrustUser.success && digiTrustUser.identity) || '';
+        };
+
+        let digiTrustId = getDigiTrustId();
+        // Verify there is an ID and this user has not opted out
+        if (!digiTrustId || (digiTrustId.privacy && digiTrustId.privacy.optout)) {
+            return {};
+        }
+        return {
+            'dt': digiTrustId.id
+        };
+    }
 
     /**
      * Generates the request URL and query data to the endpoint for the xSlots
@@ -146,7 +181,7 @@ function GumGumHtb(configs) {
         var callbackId = System.generateUniqueId();
 
         /* Change this to your bidder endpoint.*/
-        var baseUrl = Browser.getProtocol() + '//someAdapterEndpoint.com/bid';
+        var baseUrl = Browser.getProtocol() + '//g2.gumgum.com/hbid/imp';
 
         /* ------------------------ Get consent information -------------------------
          * If you want to implement GDPR consent in your adapter, use the function
@@ -166,7 +201,7 @@ function GumGumHtb(configs) {
          *
          * You can also determine whether or not the publisher has enabled privacy
          * features in their wrapper by querying ComplianceService.isPrivacyEnabled().
-         * 
+         *
          * This function will return a boolean, which indicates whether the wrapper's
          * privacy features are on (true) or off (false). If they are off, the values
          * returned from gdpr.getConsent() are safe defaults and no attempt has been
@@ -175,9 +210,19 @@ function GumGumHtb(configs) {
         var gdprStatus = ComplianceService.gdpr.getConsent();
         var privacyEnabled = ComplianceService.isPrivacyEnabled();
 
-        /* ---------------- Craft bid request using the above returnParcels --------- */
-
         /* ------- Put GDPR consent code here if you are implementing GDPR ---------- */
+
+        /* ---------------- Craft bid request using the above returnParcels --------- */
+        returnParcels.forEach(function(parcel) {
+            if (parcel.xSlotRef.inScreen) {
+                queryObj.pi = 2
+                queryObj.t = parcel.xSlotRef.inScreen
+            } else if (parcel.xSlotRef.inSlot) {
+                queryObj.pi = 3
+                queryObj.t = parseInt(parcel.xSlotRef.inSlot, 10)
+            }
+        })
+        queryObj = Object.assign({}, queryObj, _getBrowserParams(), _getDigiTrustQueryParams())
 
         /* -------------------------------------------------------------------------- */
 
@@ -265,7 +310,7 @@ function GumGumHtb(configs) {
 
         /* ---------- Process adResponse and extract the bids into the bids array ------------*/
 
-        var bids = adResponse;
+        var singleBidResponse = adResponse;
 
         /* --------------------------------------------------------------------------------- */
 
@@ -278,24 +323,24 @@ function GumGumHtb(configs) {
             headerStatsInfo[htSlotId] = {};
             headerStatsInfo[htSlotId][curReturnParcel.requestId] = [curReturnParcel.xSlotName];
 
-            var curBid;
+            var curBid = singleBidResponse && singleBidResponse.ad ? singleBidResponse : false;
 
-            for (var i = 0; i < bids.length; i++) {
+            // for (var i = 0; i < bids.length; i++) {
 
-                /**
-                 * This section maps internal returnParcels and demand returned from the bid request.
-                 * In order to match them correctly, they must be matched via some criteria. This
-                 * is usually some sort of placements or inventory codes. Please replace the someCriteria
-                 * key to a key that represents the placement in the configuration and in the bid responses.
-                 */
+            //     /**
+            //      * This section maps internal returnParcels and demand returned from the bid request.
+            //      * In order to match them correctly, they must be matched via some criteria. This
+            //      * is usually some sort of placements or inventory codes. Please replace the someCriteria
+            //      * key to a key that represents the placement in the configuration and in the bid responses.
+            //      */
 
-                /* ----------- Fill this out to find a matching bid for the current parcel ------------- */
-                if (curReturnParcel.xSlotRef.someCriteria === bids[i].someCriteria) {
-                    curBid = bids[i];
-                    bids.splice(i, 1);
-                    break;
-                }
-            }
+            //     /* ----------- Fill this out to find a matching bid for the current parcel ------------- */
+            //     if (bids[i].ad) {
+            //         curBid = bids[i];
+            //         bids.splice(i, 1);
+            //         break;
+            //     }
+            // }
 
             /* No matching bid found so its a pass */
             if (!curBid) {
@@ -312,15 +357,15 @@ function GumGumHtb(configs) {
              * these local variables */
 
             /* the bid price for the given slot */
-            var bidPrice = curBid.price;
+            var bidPrice = curBid.ad.price;
 
             /* the size of the given slot */
-            var bidSize = [Number(curBid.width), Number(curBid.height)];
+            var bidSize = [Number(curBid.ad.width), Number(curBid.ad.height)];
 
             /* the creative/adm for the given slot that will be rendered if is the winner.
              * Please make sure the URL is decoded and ready to be document.written.
              */
-            var bidCreative = curBid.adm;
+            var bidCreative = curBid.cw ? getWrapperCode(curBid.cw, Object.assign({}, curBid, { bidRequest: curReturnParcel })) : curBid.ad.markup;
 
             /* the dealId if applicable for this slot. */
             var bidDealId = curBid.dealid;
@@ -332,7 +377,7 @@ function GumGumHtb(configs) {
             * If firing a tracking pixel is not required or the pixel url is part of the adm,
             * leave empty;
             */
-            var pixelUrl = '';
+            var pixelUrl = curBid.ad.impurl;
 
             /* ---------------------------------------------------------------------------------------*/
 
@@ -445,9 +490,9 @@ function GumGumHtb(configs) {
             },
             bidUnitInCents: 1, // The bid price unit (in cents) the endpoint returns, please refer to the readme for details
             lineItemType: Constants.LineItemTypes.ID_AND_SIZE,
-            callbackType: Partner.CallbackTypes.ID, // Callback type, please refer to the readme for details
-            architecture: Partner.Architectures.SRA, // Request architecture, please refer to the readme for details
-            requestType: Partner.RequestTypes.ANY // Request type, jsonp, ajax, or any.
+            callbackType: Partner.CallbackTypes.NONE, // Callback type, please refer to the readme for details
+            architecture: Partner.Architectures.MRA, // Request architecture, please refer to the readme for details
+            requestType: Partner.RequestTypes.AJAX // Request type, jsonp, ajax, or any.
         };
         /* ---------------------------------------------------------------------------------------*/
 

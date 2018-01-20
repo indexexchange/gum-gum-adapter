@@ -1,22 +1,16 @@
 {
-    "timeout": 1000,
+    "timeout": 3000,
     "xSlots": {
         "1": {
-            "placementId": "54321",
+            "inScreen": "ggumtest",
             "sizes": [
-                [300, 250]
+                [300, 100]
             ]
         },
         "2": {
-            "placementId": "12345",
+            "inSlot": 9,
             "sizes": [
-                [300, 600]
-            ]
-        },
-        "3": {
-            "placementId": "654321",
-            "sizes": [
-                [728, 90]
+                [600, 300]
             ]
         }
     },

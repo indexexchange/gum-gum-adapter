@@ -64,7 +64,7 @@ describe('generateRequestObj', function () {
     var inspector = require('schema-inspector');
     var proxyquire = require('proxyquire').noCallThru();
     var libraryStubData = require('./support/libraryStubData.js');
-    var partnerModule = proxyquire('../gum-gum-htb.js', libraryStubData);
+    var partnerModule = proxyquire('../gumgum-htb.js', libraryStubData);
     var partnerConfig = require('./support/mockPartnerConfig.json');
     var expect = require('chai').expect;
     /* -------------------------------------------------------------------- */
