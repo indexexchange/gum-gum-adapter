@@ -1,5 +1,180 @@
 {
-    "bid": [],
-    "pass": [],
-    "deals": []
+    "bids": [
+        {
+            "ad": {
+                "id": 1,
+                "width": 600,
+                "height": 300,
+                "markup": "<div id=\"GGUID\" style=\"width:600px;height:300px;background:green;color:black;font:normal 18px/1 sans\">RESPONSE INSCREEN</div>",
+                "ii": false,
+                "du": "https://va-g2.gumgum.com/ad/click",
+                "price": 0.037399999797344207,
+                "zi": 0,
+                "impurl": "http://va-g2.gumgum.com/ad/view",
+                "v50url": "http://va-g2.gumgum.com/ad/viewable50",
+                "v100url": "http://va-g2.gumgum.com/ad/viewable100",
+                "clsurl": "http://va-g2.gumgum.com/ad/close"
+            },
+            "adhs": {
+                "id": 33,
+                "adp": {
+                    "x": "L",
+                    "y": "B"
+                },
+                "ads": null,
+                "adf": {
+                    "animated": false,
+                    "assetwide": true
+                },
+                "clc": "<img style=\"border:0;margin:0;padding:0;background-color:transparent;cursor:pointer;cursor:hand;width:20px;height:20px;\" src=\"https://c.gumgum.com/ads/com/gumgum/close/new/close_dark_3x.png\" onmouseover=\"this.src='https://c.gumgum.com/ads/com/gumgum/close/new/close_dark_3x_hov.png'\" onmouseout=\"this.src='https://c.gumgum.com/ads/com/gumgum/close/new/close_dark_3x.png'\" onload=\"this.parentNode.style.zIndex='99999';this.style.zIndex='99999'\">",
+                "clp": {
+                    "top": 18,
+                    "right": 3
+                },
+                "atc": "",
+                "atp": {
+                    "top": 18,
+                    "right": 27
+                },
+                "acp": null
+            },
+            "thms": 30000,
+            "cw": "<img src=\"https://c.gumgum.com/px.gif\" onload=\"(function(a,b){b.src='https://js.gumgum.com/gumgum.js',a.parentNode.replaceChild(b,a)})(this,document.createElement('script'))\"><gumgum-ad product=\"2\" fromAS='AD_JSON'><\/gumgum-ad>"
+        },
+        {
+            "ad": {
+                "id": 2,
+                "width": 600,
+                "height": 300,
+                "markup": "<div id=\"GGUID\" style=\"width:600px;height:300px;background:green;color:black;font:normal 18px/1 sans\">RESPONSE SLOT</div>",
+                "ii": false,
+                "du": "https://va-g2.gumgum.com/ad/click",
+                "price": 0.037399999797344207,
+                "zi": 0,
+                "impurl": "http://va-g2.gumgum.com/ad/view",
+                "v50url": "http://va-g2.gumgum.com/ad/viewable50",
+                "v100url": "http://va-g2.gumgum.com/ad/viewable100",
+                "clsurl": "http://va-g2.gumgum.com/ad/close"
+            },
+            "adhs": {
+                "id": 33,
+                "adp": {
+                    "x": "L",
+                    "y": "B"
+                },
+                "ads": null,
+                "adf": {
+                    "animated": false,
+                    "assetwide": true
+                },
+                "clc": "<img style=\"border:0;margin:0;padding:0;background-color:transparent;cursor:pointer;cursor:hand;width:20px;height:20px;\" src=\"https://c.gumgum.com/ads/com/gumgum/close/new/close_dark_3x.png\" onmouseover=\"this.src='https://c.gumgum.com/ads/com/gumgum/close/new/close_dark_3x_hov.png'\" onmouseout=\"this.src='https://c.gumgum.com/ads/com/gumgum/close/new/close_dark_3x.png'\" onload=\"this.parentNode.style.zIndex='99999';this.style.zIndex='99999'\">",
+                "clp": {
+                    "top": 18,
+                    "right": 3
+                },
+                "atc": "",
+                "atp": {
+                    "top": 18,
+                    "right": 27
+                },
+                "acp": null
+            },
+            "thms": 30000,
+            "cw": "<img src=\"https://c.gumgum.com/px.gif\" onload=\"(function(a,b){b.src='https://js.gumgum.com/gumgum.js',a.parentNode.replaceChild(b,a)})(this,document.createElement('script'))\"><gumgum-ad product=\"2\" fromAS='AD_JSON'><\/gumgum-ad>"
+        }
+    ],
+    "pass": [
+        {
+            "pass": true
+        },
+        {
+            "pass": true
+        }
+    ],
+    "deals": [
+        {
+            "ad": {
+                "id": 1,
+                "width": 600,
+                "height": 300,
+                "markup": "<div id=\"GGUID\" style=\"width:600px;height:300px;background:green;color:black;font:normal 18px/1 sans\">RESPONSE INSCREEN</div>",
+                "ii": false,
+                "du": "https://va-g2.gumgum.com/ad/click",
+                "price": 0.037399999797344207,
+                "zi": 0,
+                "impurl": "http://va-g2.gumgum.com/ad/view",
+                "v50url": "http://va-g2.gumgum.com/ad/viewable50",
+                "v100url": "http://va-g2.gumgum.com/ad/viewable100",
+                "clsurl": "http://va-g2.gumgum.com/ad/close"
+            },
+            "adhs": {
+                "id": 33,
+                "adp": {
+                    "x": "L",
+                    "y": "B"
+                },
+                "ads": null,
+                "adf": {
+                    "animated": false,
+                    "assetwide": true
+                },
+                "clc": "<img style=\"border:0;margin:0;padding:0;background-color:transparent;cursor:pointer;cursor:hand;width:20px;height:20px;\" src=\"https://c.gumgum.com/ads/com/gumgum/close/new/close_dark_3x.png\" onmouseover=\"this.src='https://c.gumgum.com/ads/com/gumgum/close/new/close_dark_3x_hov.png'\" onmouseout=\"this.src='https://c.gumgum.com/ads/com/gumgum/close/new/close_dark_3x.png'\" onload=\"this.parentNode.style.zIndex='99999';this.style.zIndex='99999'\">",
+                "clp": {
+                    "top": 18,
+                    "right": 3
+                },
+                "atc": "",
+                "atp": {
+                    "top": 18,
+                    "right": 27
+                },
+                "acp": null
+            },
+            "dealid": "DEAL 1",
+            "thms": 30000,
+            "cw": "<img src=\"https://c.gumgum.com/px.gif\" onload=\"(function(a,b){b.src='https://js.gumgum.com/gumgum.js',a.parentNode.replaceChild(b,a)})(this,document.createElement('script'))\"><gumgum-ad product=\"2\" fromAS='AD_JSON'><\/gumgum-ad>"
+        },
+        {
+            "ad": {
+                "id": 2,
+                "width": 600,
+                "height": 300,
+                "markup": "<div id=\"GGUID\" style=\"width:600px;height:300px;background:green;color:black;font:normal 18px/1 sans\">RESPONSE SLOT</div>",
+                "ii": false,
+                "du": "https://va-g2.gumgum.com/ad/click",
+                "price": 0.037399999797344207,
+                "zi": 0,
+                "impurl": "http://va-g2.gumgum.com/ad/view",
+                "v50url": "http://va-g2.gumgum.com/ad/viewable50",
+                "v100url": "http://va-g2.gumgum.com/ad/viewable100",
+                "clsurl": "http://va-g2.gumgum.com/ad/close"
+            },
+            "adhs": {
+                "id": 33,
+                "adp": {
+                    "x": "L",
+                    "y": "B"
+                },
+                "ads": null,
+                "adf": {
+                    "animated": false,
+                    "assetwide": true
+                },
+                "clc": "<img style=\"border:0;margin:0;padding:0;background-color:transparent;cursor:pointer;cursor:hand;width:20px;height:20px;\" src=\"https://c.gumgum.com/ads/com/gumgum/close/new/close_dark_3x.png\" onmouseover=\"this.src='https://c.gumgum.com/ads/com/gumgum/close/new/close_dark_3x_hov.png'\" onmouseout=\"this.src='https://c.gumgum.com/ads/com/gumgum/close/new/close_dark_3x.png'\" onload=\"this.parentNode.style.zIndex='99999';this.style.zIndex='99999'\">",
+                "clp": {
+                    "top": 18,
+                    "right": 3
+                },
+                "atc": "",
+                "atp": {
+                    "top": 18,
+                    "right": 27
+                },
+                "acp": null
+            },
+            "dealid": "DEAL 2",
+            "thms": 30000,
+            "cw": "<img src=\"https://c.gumgum.com/px.gif\" onload=\"(function(a,b){b.src='https://js.gumgum.com/gumgum.js',a.parentNode.replaceChild(b,a)})(this,document.createElement('script'))\"><gumgum-ad product=\"2\" fromAS='AD_JSON'><\/gumgum-ad>"
+        }
+    ]
 }

@@ -82,7 +82,7 @@ describe('parseResponse', function () {
     var inspector = require('schema-inspector');
     var proxyquire = require('proxyquire').noCallThru();
     var libraryStubData = require('./support/libraryStubData.js');
-    var partnerModule = proxyquire('../gum-gum-htb.js', libraryStubData);
+    var partnerModule = proxyquire('../gumgum-htb.js', libraryStubData);
     var partnerConfig = require('./support/mockPartnerConfig.json');
     var fs = require('fs');
     var parseJson = require('parse-json');
@@ -113,7 +113,7 @@ describe('parseResponse', function () {
 
             /* Get mock response data from our responseData file */
             responseData = JSON.parse(fs.readFileSync(path.join(__dirname, './support/mockResponseData.json')));
-            mockData = responseData.bid;
+            mockData = responseData.bids;
         });
 
         afterEach(function () {
@@ -454,7 +454,7 @@ describe('parseResponse', function () {
 
             /* Get mock response data from our responseData file */
             responseData = JSON.parse(fs.readFileSync(path.join(__dirname, './support/mockResponseData.json')));
-            mockData = responseData.dealid;
+            mockData = responseData.deals;
         });
 
         afterEach(function () {

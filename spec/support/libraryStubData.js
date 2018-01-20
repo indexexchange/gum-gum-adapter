@@ -28,6 +28,15 @@ var libraryStubData = {
         getPageUrl: function () {
             return 'http://www.indexexchange.com';
         },
+        getViewportWidth: function () {
+            return 1012
+        },
+        getViewportHeight: function () {
+            return 700
+        },
+        isLocalStorageSupported: function () {
+            return true
+        },
         topWindow: mock.getWindow()
     },
     'classify.js': {
@@ -143,7 +152,7 @@ var libraryStubData = {
             return;
         },
     },
-    'gum-gum-htb-validator.js': function () {
+    'gumgum-htb-validator.js': function () {
         return null;
     }
 };
