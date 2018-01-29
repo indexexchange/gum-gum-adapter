@@ -219,7 +219,7 @@ function GumGumHtb(configs) {
                 queryObj.t = parcel.xSlotRef.inScreen
             } else if (parcel.xSlotRef.inSlot) {
                 queryObj.pi = 3
-                queryObj.t = parseInt(parcel.xSlotRef.inSlot, 10)
+                queryObj.si = parseInt(parcel.xSlotRef.inSlot, 10)
             }
         })
         queryObj = Object.assign({}, queryObj, _getBrowserParams(), _getDigiTrustQueryParams())
