@@ -90,7 +90,6 @@ function GumGumHtb(configs) {
         return wrapper.replace('AD_JSON', Browser.topWindow.btoa(JSON.stringify(data)))
     }
 
-    // TODO: use getConfig()
     function _getDigiTrustQueryParams() {
         var window = Browser.topWindow;
 

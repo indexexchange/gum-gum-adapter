@@ -43,13 +43,29 @@ var partnerValidator = function (configs) {
                     '*': {
                         type: 'object',
                         properties: {
+                            exec: function (schema, post) {
+                                if (!((post.hasOwnProperty('inScreen') || post.hasOwnProperty('inSlot')))) {
+                                    this.report("Need either inScreen or inSlot");
+                                }
+                                return post;
+                            },
                             inScreen: {
+                                optional: true,
                                 type: 'string',
-                                minLength: 0
+                                exactLength: 8
                             },
                             inSlot: {
+                                optional: true,
                                 type: 'integer',
                                 minLength: 0
+                            },
+                            sizes: {
+                                type: 'array',
+                                minLength: 1,
+                                uniqueness: true,
+                                items: [
+                                    { type: 'integer' }
+                                ]
                             }
                         }
                     }
