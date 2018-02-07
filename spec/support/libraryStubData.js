@@ -152,7 +152,7 @@ var libraryStubData = {
             return;
         },
     },
-    'gumgum-htb-validator.js': function () {
+    'gum-gum-htb-validator.js': function () {
         return null;
     }
 };
