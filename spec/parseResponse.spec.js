@@ -82,7 +82,7 @@ describe('parseResponse', function () {
     var inspector = require('schema-inspector');
     var proxyquire = require('proxyquire').noCallThru();
     var libraryStubData = require('./support/libraryStubData.js');
-    var partnerModule = proxyquire('../gumgum-htb.js', libraryStubData);
+    var partnerModule = proxyquire('../gum-gum-htb.js', libraryStubData);
     var partnerConfig = require('./support/mockPartnerConfig.json');
     var fs = require('fs');
     var parseJson = require('parse-json');
