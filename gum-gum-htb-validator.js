@@ -42,13 +42,13 @@ var partnerValidator = function (configs) {
                 properties: {
                     '*': {
                         type: 'object',
+                        exec: function (schema, post) {
+                            if (!((post.hasOwnProperty('inScreen') || post.hasOwnProperty('inSlot')))) {
+                                this.report("Need either inScreen or inSlot");
+                            }
+                            return post;
+                        },
                         properties: {
-                            exec: function (schema, post) {
-                                if (!((post.hasOwnProperty('inScreen') || post.hasOwnProperty('inSlot')))) {
-                                    this.report("Need either inScreen or inSlot");
-                                }
-                                return post;
-                            },
                             inScreen: {
                                 optional: true,
                                 type: 'string',
@@ -63,9 +63,12 @@ var partnerValidator = function (configs) {
                                 type: 'array',
                                 minLength: 1,
                                 uniqueness: true,
-                                items: [
-                                    { type: 'integer' }
-                                ]
+                                items: {
+                                    type: 'array',
+                                    items: {
+                                        type: 'integer'
+                                    }
+                                }
                             }
                         }
                     }
