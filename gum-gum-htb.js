@@ -98,7 +98,7 @@ function GumGumHtb(configs) {
             return (digiTrustUser && digiTrustUser.success && digiTrustUser.identity) || '';
         };
 
-        let digiTrustId = getDigiTrustId();
+        var digiTrustId = getDigiTrustId();
         // Verify there is an ID and this user has not opted out
         if (!digiTrustId || (digiTrustId.privacy && digiTrustId.privacy.optout)) {
             return {};
