@@ -364,7 +364,7 @@ function GumGumHtb(configs) {
             /* the creative/adm for the given slot that will be rendered if is the winner.
              * Please make sure the URL is decoded and ready to be document.written.
              */
-            var bidCreative = curBid.cw ? getWrapperCode(curBid.cw, Object.assign({}, curBid, { bidRequest: curReturnParcel })) : curBid.ad.markup;
+            var bidCreative = curBid.cw ? getWrapperCode(curBid.cw, Object.assign({}, curBid, { bdg: null, bidRequest: Object.assign({}, curReturnParcel, { ref: null }) })) : curBid.ad.markup;
 
             /* the dealId if applicable for this slot. */
             var bidDealId = curBid.dealid;
