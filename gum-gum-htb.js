@@ -349,6 +349,14 @@ function GumGumHtb(configs) {
                 curReturnParcel.pass = true;
                 continue;
             }
+            // Default values for ad configuration object
+            var adConfig = Object.assign({
+                price: 0,
+                width: 0,
+                height: 0,
+                markup: '',
+                impurl: null
+            }, curBid.ad)
 
             /* ---------- Fill the bid variables with data from the bid response here. ------------*/
 
@@ -356,15 +364,15 @@ function GumGumHtb(configs) {
              * these local variables */
 
             /* the bid price for the given slot */
-            var bidPrice = curBid.ad.price;
+            var bidPrice = adConfig.price;
 
             /* the size of the given slot */
-            var bidSize = [Number(curBid.ad.width), Number(curBid.ad.height)];
+            var bidSize = [Number(adConfig.width), Number(adConfig.height)];
 
             /* the creative/adm for the given slot that will be rendered if is the winner.
              * Please make sure the URL is decoded and ready to be document.written.
              */
-            var bidCreative = curBid.cw ? getWrapperCode(curBid.cw, Object.assign({}, curBid, { bdg: null, bidRequest: Object.assign({}, curReturnParcel, { ref: null }) })) : curBid.ad.markup;
+            var bidCreative = curBid.cw ? getWrapperCode(curBid.cw, Object.assign({}, curBid, { bdg: null, bidRequest: Object.assign({}, curReturnParcel, { ref: null }) })) : adConfig.markup;
 
             /* the dealId if applicable for this slot. */
             var bidDealId = curBid.dealid;
@@ -376,7 +384,7 @@ function GumGumHtb(configs) {
             * If firing a tracking pixel is not required or the pixel url is part of the adm,
             * leave empty;
             */
-            var pixelUrl = curBid.ad.impurl;
+            var pixelUrl = adConfig.impurl;
 
             /* ---------------------------------------------------------------------------------------*/
 
