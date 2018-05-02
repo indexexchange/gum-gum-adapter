@@ -213,13 +213,15 @@ function GumGumHtb(configs) {
 
         /* ---------------- Craft bid request using the above returnParcels --------- */
         returnParcels.forEach(function(parcel) {
-            if (parcel.xSlotRef.inScreen) {
+            var xSlot = parcel.xSlotRef
+            if (xSlot.inScreen) {
                 queryObj.pi = 2
-                queryObj.t = parcel.xSlotRef.inScreen
-            } else if (parcel.xSlotRef.inSlot) {
+                queryObj.t = xSlot.inScreen
+            } else if (xSlot.inSlot) {
                 queryObj.pi = 3
-                queryObj.si = parseInt(parcel.xSlotRef.inSlot, 10)
+                queryObj.si = parseInt(xSlot.inSlot, 10)
             }
+            queryObj.sizes = JSON.stringify(xSlot.size)
         })
         queryObj = Object.assign({}, queryObj, _getBrowserParams(), _getDigiTrustQueryParams())
 
@@ -316,13 +318,14 @@ function GumGumHtb(configs) {
         for (var j = 0; j < returnParcels.length; j++) {
 
             var curReturnParcel = returnParcels[j];
+            var curSlotRef = curReturnParcel.xSlotRef;
 
             var headerStatsInfo = {};
             var htSlotId = curReturnParcel.htSlot.getId();
             headerStatsInfo[htSlotId] = {};
             headerStatsInfo[htSlotId][curReturnParcel.requestId] = [curReturnParcel.xSlotName];
 
-            var curBid = singleBidResponse && singleBidResponse.ad ? singleBidResponse : false;
+            var curBid = singleBidResponse && singleBidResponse.ad && singleBidResponse.ad.id ? singleBidResponse : false;
 
             // for (var i = 0; i < bids.length; i++) {
 
@@ -357,6 +360,12 @@ function GumGumHtb(configs) {
                 markup: '',
                 impurl: null
             }, curBid.ad)
+
+            // Our In-Screen unit is not slot-size based, it will only consider Viewport Size
+            if (curSlotRef.inScrenn && curSlotRef.sizes.length > 0) {
+                adConfig.width = curSlotRef.sizes[0][0]
+                adConfig.height = curSlotRef.sizes[0][1]
+            }
 
             /* ---------- Fill the bid variables with data from the bid response here. ------------*/
 
