@@ -221,7 +221,7 @@ function GumGumHtb(configs) {
                 queryObj.pi = 3
                 queryObj.si = parseInt(xSlot.inSlot, 10)
             }
-            queryObj.sizes = JSON.stringify(xSlot.size)
+            queryObj.sizes = JSON.stringify(xSlot.sizes)
         })
         queryObj = Object.assign({}, queryObj, _getBrowserParams(), _getDigiTrustQueryParams())
 
