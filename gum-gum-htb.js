@@ -206,10 +206,10 @@ function GumGumHtb(configs) {
          * returned from gdpr.getConsent() are safe defaults and no attempt has been
          * made by the wrapper to contact a Consent Management Platform.
          */
-        var gdprStatus = ComplianceService.gdpr.getConsent();
-        var privacyEnabled = ComplianceService.isPrivacyEnabled();
 
         /* ------- Put GDPR consent code here if you are implementing GDPR ---------- */
+        // var gdprStatus = ComplianceService.gdpr.getConsent();
+        // var privacyEnabled = ComplianceService.isPrivacyEnabled();
 
         /* ---------------- Craft bid request using the above returnParcels --------- */
         returnParcels.forEach(function(parcel) {
@@ -362,7 +362,7 @@ function GumGumHtb(configs) {
             }, curBid.ad)
 
             // Our In-Screen unit is not slot-size based, it will only consider Viewport Size
-            if (curSlotRef.inScrenn && curSlotRef.sizes.length > 0) {
+            if (curSlotRef.inScreen && curSlotRef.sizes.length > 0) {
                 adConfig.width = curSlotRef.sizes[0][0]
                 adConfig.height = curSlotRef.sizes[0][1]
             }
