@@ -208,8 +208,11 @@ function GumGumHtb(configs) {
          */
 
         /* ------- Put GDPR consent code here if you are implementing GDPR ---------- */
-        // var gdprStatus = ComplianceService.gdpr.getConsent();
-        // var privacyEnabled = ComplianceService.isPrivacyEnabled();
+        var privacyEnabled = ComplianceService.isPrivacyEnabled();
+        queryObj.gdprApplies = privacyEnabled
+        if (privacyEnabled) {
+            queryObj.gdprConsent = ComplianceService.gdpr.getConsent().consentString
+        }
 
         /* ---------------- Craft bid request using the above returnParcels --------- */
         returnParcels.forEach(function(parcel) {
