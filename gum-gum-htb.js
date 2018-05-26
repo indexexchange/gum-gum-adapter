@@ -209,8 +209,9 @@ function GumGumHtb(configs) {
 
         /* ------- Put GDPR consent code here if you are implementing GDPR ---------- */
         var privacyEnabled = ComplianceService.isPrivacyEnabled();
-        queryObj.gdprApplies = privacyEnabled
-        if (privacyEnabled) {
+        var gdprConsent = ComplianceService.gdpr.getConsent();
+        queryObj.gdprApplies = gdprConsent.applies
+        if (privacyEnabled && gdpr.applies) {
             queryObj.gdprConsent = ComplianceService.gdpr.getConsent().consentString
         }
 
