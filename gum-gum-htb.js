@@ -210,9 +210,9 @@ function GumGumHtb(configs) {
         /* ------- Put GDPR consent code here if you are implementing GDPR ---------- */
         var privacyEnabled = ComplianceService.isPrivacyEnabled();
         var gdprConsent = ComplianceService.gdpr.getConsent();
-        if (privacyEnabled && gdpr.applies) {
+        if (privacyEnabled && gdprConsent.applies) {
             queryObj.gdprApplies = +gdprConsent.applies // casts to 0 or 1
-            queryObj.gdprConsent = ComplianceService.gdpr.getConsent().consentString
+            queryObj.gdprConsent = gdprConsent.consentString
         }
 
         /* ---------------- Craft bid request using the above returnParcels --------- */
