@@ -94,6 +94,7 @@ function GumGumHtb(configs) {
         var window = Browser.topWindow;
 
         function getDigiTrustId() {
+            var DT_CREDENTIALS = { member: 'YcXr87z2lpbB' }
             var digiTrustUser = (window.DigiTrust && window.DigiTrust.getUser) ? window.DigiTrust.getUser(DT_CREDENTIALS) : {};
             return (digiTrustUser && digiTrustUser.success && digiTrustUser.identity) || '';
         };
