@@ -74,6 +74,30 @@ function GumGumHtb(configs) {
     /* Utilities
      * ---------------------------------- */
 
+    function mergeObjs(target, objs) {
+        if (target == null) { // TypeError if undefined or null
+            throw new TypeError('Cannot convert undefined or null to object');
+        }
+
+        if (typeof Object.assign === 'function') {
+            return Object.assign.apply(Object, Array.prototype.slice.call(arguments))
+        }
+        var to = Object(target);
+
+        for (var index = 1; index < arguments.length; index++) {
+            var nextSource = arguments[index];
+            if (nextSource != null) { // Skip over if undefined or null
+                for (var nextKey in nextSource) {
+                    // Avoid bugs when hasOwnProperty is shadowed
+                    if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                        to[nextKey] = nextSource[nextKey];
+                    }
+                }
+            }
+        }
+        return to;
+    }
+
     function _getBrowserParams() {
         return {
             vw: Browser.getViewportWidth(),
@@ -228,7 +252,7 @@ function GumGumHtb(configs) {
             }
             queryObj.sizes = JSON.stringify(xSlot.sizes)
         })
-        queryObj = Object.assign({}, queryObj, _getBrowserParams(), _getDigiTrustQueryParams())
+        queryObj = mergeObjs({}, queryObj, _getBrowserParams(), _getDigiTrustQueryParams())
 
         /* -------------------------------------------------------------------------- */
 
@@ -358,7 +382,7 @@ function GumGumHtb(configs) {
                 continue;
             }
             // Default values for ad configuration object
-            var adConfig = Object.assign({
+            var adConfig = mergeObjs({
                 price: 0,
                 width: 0,
                 height: 0,
@@ -386,7 +410,7 @@ function GumGumHtb(configs) {
             /* the creative/adm for the given slot that will be rendered if is the winner.
              * Please make sure the URL is decoded and ready to be document.written.
              */
-            var bidCreative = curBid.cw ? getWrapperCode(curBid.cw, Object.assign({}, curBid, { bdg: null, bidRequest: Object.assign({}, curReturnParcel, { ref: null }) })) : adConfig.markup;
+            var bidCreative = curBid.cw ? getWrapperCode(curBid.cw, mergeObjs({}, curBid, { bdg: null, bidRequest: mergeObjs({}, curReturnParcel, { ref: null }) })) : adConfig.markup;
 
             /* the dealId if applicable for this slot. */
             var bidDealId = curBid.dealid;
