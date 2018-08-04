@@ -378,7 +378,7 @@ function GumGumHtb(configs) {
              * these local variables */
 
             /* the bid price for the given slot */
-            var bidPrice = adConfig.price;
+            var bidPrice = adConfig.price * 100; //GumGum sends bid price as dollars (USD), IX only accepts cents
 
             /* the size of the given slot */
             var bidSize = [Number(adConfig.width), Number(adConfig.height)];
