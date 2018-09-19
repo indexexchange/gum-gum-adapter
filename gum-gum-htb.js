@@ -98,6 +98,68 @@ function GumGumHtb(configs) {
         return to;
     }
 
+    function hasTopAccess () {
+        var hasTopAccess = false
+        try { hasTopAccess = !!top.document } catch (e) {}
+        return hasTopAccess
+    }
+    
+    function isInSafeFrame (windowRef) {
+        var w = windowRef || window
+        if (window.$sf) return window.$sf
+        else if (hasTopAccess() && window !== top) return isInSafeFrame(window.parent)
+        return null
+    }
+    
+    function getGoogleTag (windowRef) {
+        try {
+            var w = windowRef || window
+            var GOOGLETAG = null
+            if ('googletag' in w) GOOGLETAG = w.googletag
+            else if (w !== top) GOOGLETAG = getGoogleTag(w.parent)
+            return GOOGLETAG
+        } catch (error) {
+            return null
+        }
+    }
+    
+    function getAMPContext (windowRef) {
+        var w = windowRef || window
+        var context = null
+        var nameJSON = null
+        if (w.context && Utilities.isObject(w.context)) {
+            context = w.context
+        } else {
+            nameJSON = JSON.parse(w.name)
+            if (nameJSON && Utilities.isObject(nameJSON)) {
+                context = nameJSON._context || (nameJSON.attributes ? nameJSON.attributes._context : null)
+            }
+            if (w.AMP_CONTEXT_DATA && Utilities.isObject(w.AMP_CONTEXT_DATA)) {
+                context = w.AMP_CONTEXT_DATA
+            }
+        }
+        return context
+    }
+
+    function getJCSI () {
+        var entrypointOffset = 8
+        var inFrame = (window.top && window.top !== window)
+        var frameType = (!inFrame ? 1 : (isInSafeFrame() ? 2 : (hasTopAccess() ? 3 : 4)))
+        var context = []
+        if (getAMPContext()) {
+            context.push(1)
+        }
+        if (getGoogleTag()) {
+            context.push(2)
+        }
+        var jcsi = {
+            ep: entrypointOffset,
+            fc: frameType,
+            ctx: context
+        }
+        return JSON.stringify(jcsi)
+    } 
+
     function _getBrowserParams() {
         return {
             vw: Browser.getViewportWidth(),
@@ -106,7 +168,8 @@ function GumGumHtb(configs) {
             sh: Browser.getScreenHeight(),
             pu: Browser.getPageUrl(),
             ce: Browser.isLocalStorageSupported(),
-            dpr: Browser.topWindow.devicePixelRatio || 1
+            dpr: Browser.topWindow.devicePixelRatio || 1,
+            jcsi: getJCSI()
         }
     }
 
