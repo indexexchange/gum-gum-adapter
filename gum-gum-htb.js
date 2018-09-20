@@ -130,7 +130,7 @@ function GumGumHtb(configs) {
         if (w.context && Utilities.isObject(w.context)) {
             context = w.context
         } else {
-            nameJSON = JSON.parse(w.name)
+            try { nameJSON = JSON.parse(w.name) } catch (e) { }
             if (nameJSON && Utilities.isObject(nameJSON)) {
                 context = nameJSON._context || (nameJSON.attributes ? nameJSON.attributes._context : null)
             }
