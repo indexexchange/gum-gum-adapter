@@ -106,8 +106,8 @@ function GumGumHtb(configs) {
     
     function isInSafeFrame (windowRef) {
         var w = windowRef || window
-        if (window.$sf) return window.$sf
-        else if (hasTopAccess() && window !== top) return isInSafeFrame(window.parent)
+        if (w.$sf) return w.$sf
+        else if (hasTopAccess() && w !== top) return isInSafeFrame(w.parent)
         return null
     }
     
