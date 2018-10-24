@@ -106,7 +106,11 @@ function GumGumHtb(configs) {
             sh: Browser.getScreenHeight(),
             pu: Browser.getPageUrl(),
             ce: Browser.isLocalStorageSupported(),
-            dpr: Browser.topWindow.devicePixelRatio || 1
+            dpr: Browser.topWindow.devicePixelRatio || 1,
+            jcsi: { 
+                t: 0, 
+                rq: 8
+            }
         }
     }
 
