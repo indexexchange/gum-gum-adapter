@@ -67,6 +67,13 @@ function GumGumHtb(configs) {
      */
     var __profile;
 
+    /**
+     * Reference to pvid.
+     * 
+     * @private {string}
+     */
+    var pageViewId = null;
+
     /* =====================================
      * Functions
      * ---------------------------------- */
@@ -106,7 +113,11 @@ function GumGumHtb(configs) {
             sh: Browser.getScreenHeight(),
             pu: Browser.getPageUrl(),
             ce: Browser.isLocalStorageSupported(),
-            dpr: Browser.topWindow.devicePixelRatio || 1
+            dpr: Browser.topWindow.devicePixelRatio || 1,
+            jcsi: { 
+                t: 0, 
+                rq: 8
+            }
         }
     }
 
@@ -254,6 +265,9 @@ function GumGumHtb(configs) {
             }
             queryObj.sizes = JSON.stringify(xSlot.sizes)
         })
+        if (pageViewId) {
+            queryObj.pv = pageViewId
+        }
         queryObj = mergeObjs({}, queryObj, _getBrowserParams(), _getDigiTrustQueryParams())
 
         /* -------------------------------------------------------------------------- */
@@ -383,6 +397,9 @@ function GumGumHtb(configs) {
                 curReturnParcel.pass = true;
                 continue;
             }
+            // Update pageViewId from server response
+            pageViewId = curBid.pag && curBid.pag.pvid
+
             // Default values for ad configuration object
             var adConfig = mergeObjs({
                 price: 0,
@@ -424,7 +441,7 @@ function GumGumHtb(configs) {
             * If firing a tracking pixel is not required or the pixel url is part of the adm,
             * leave empty;
             */
-            var pixelUrl = adConfig.impurl;
+            var pixelUrl = '';
 
             /* ---------------------------------------------------------------------------------------*/
 
