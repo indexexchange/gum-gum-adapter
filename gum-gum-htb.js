@@ -105,8 +105,15 @@ function GumGumHtb(configs) {
         return to;
     }
 
+    function getNetworkSpeed () {
+        var window = Browser.topWindow;
+        var connection = window.navigator && (window.navigator.connection || window.navigator.mozConnection || window.navigator.webkitConnection)
+        var Mbps = connection && (connection.downlink || connection.bandwidth)
+        return Mbps ? Math.round(Mbps * 1024) : null // 1 megabit -> 1024 kilobits
+    }
+
     function _getBrowserParams() {
-        return {
+        var paramObj = {
             vw: Browser.getViewportWidth(),
             vh: Browser.getViewportHeight(),
             sw: Browser.getScreenWidth(),
@@ -114,11 +121,13 @@ function GumGumHtb(configs) {
             pu: Browser.getPageUrl(),
             ce: Browser.isLocalStorageSupported(),
             dpr: Browser.topWindow.devicePixelRatio || 1,
-            jcsi: { 
-                t: 0, 
-                rq: 8
-            }
+            jcsi: JSON.stringify({ t: 0, rq: 9 })
         }
+        var ns = getNetworkSpeed()
+        if (ns) {
+            paramObj.ns = ns
+        }
+        return paramObj
     }
 
     function getWrapperCode(wrapper, data) {
