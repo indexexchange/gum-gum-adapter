@@ -121,7 +121,7 @@ function GumGumHtb(configs) {
             pu: Browser.getPageUrl(),
             ce: Browser.isLocalStorageSupported(),
             dpr: Browser.topWindow.devicePixelRatio || 1,
-            jcsi: JSON.stringify({ t: 0, rq: 8 })
+            jcsi: JSON.stringify({ t: 0, rq: 9 })
         }
         var ns = getNetworkSpeed()
         if (ns) {
